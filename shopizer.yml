@@ -1,0 +1,6 @@
+---
+- host: shopizer
+  become : yes 
+  tasks: 
+  
+

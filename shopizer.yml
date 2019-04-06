@@ -1,6 +1,22 @@
 ---
-- host: shopizer
+- hosts: shopizer
   become : yes 
   tasks: 
-  
-
+    - name : install Tomcat & Java 
+      package: 
+       name : "{{ item }}"
+       state : present 
+      loop:
+      - java
+      - tomcat
+      - tomcat-webapps
+      - tomcat-admin-webapps
+    - name : Copy myshop.war 
+      copy: 
+        src : /home/ansible/myshop/myshop.war
+        dest : /usr/share/tomcat/webapps
+    - name : start tomcat service
+      service :
+        name : tomcat
+        state : started 
+        
